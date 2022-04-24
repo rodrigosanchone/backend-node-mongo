@@ -34,4 +34,5 @@ router.delete('/article/:id',ArticleController.delete);
 //router.post('/upload-image/:id',md_upload,ArticleController.upload);//la ruta procesa los archivos que le quiero pasar
  router.post('/upload-image/:id',md_upload, ArticleController.upload);
  router.get('/get-image/:image', ArticleController.getImage); 
+ router.get(' ', ArticleController.search); 
 module.exports = router;

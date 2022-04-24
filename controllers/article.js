@@ -7,6 +7,7 @@ const article = require('../models/article');
 var Article= require('../models/article');
 var fs= require('fs');
 var path= require('path');
+const { geoSearch } = require('../models/article');
 
 
 var controller ={
@@ -319,7 +320,39 @@ var controller ={
             }
           })
          
-        }
+        },//end upload
+
+      search:(req,res)=>{
+        //sacara el string a buscar 
+        var searchString= req.params.search;
+          //find or
+          Article.find({
+            "$or":[
+              {"title":{"$regex":searchString, "$options":"i"}},//si el searhString esta dentro de title  me  va sacar los articulos con eso 
+              {"content":{"$regex":searchString, "$options":"i"}}//si el searhString esta dentro de content  me saca los articulos
+            ]
+          })
+          .sort([['date','descending']])
+          .exec((err,articles)=>{
+            if(err){
+              return res.status(500).send({
+                status:'error',
+                message:'No se logro encontrar los articulos'
+              });
+            }
+            if(!articles){
+              return res.status(404).send({
+                status:'error',
+                message:'No hay articulos que mostrar'
+              });
+            }
+            return res.status(200).send({
+              status:'succes',
+              articles
+            });
+          })
+       
+      }
 } //end controller
 
      

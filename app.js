@@ -20,7 +20,15 @@ var article_routes=require('./routes/article');
 app.use(bodyParser.urlencoded({extended:false}))//cargar el body parse
 app.use(bodyParser.json());
 
-//cors
+//cors acceso cruzado entre dominios
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
 
 
 //añadir prefijos rutas / cargar rutas
