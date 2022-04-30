@@ -7,7 +7,7 @@ const article = require('../models/article');
 var Article= require('../models/article');
 var fs= require('fs');
 var path= require('path');
-const { geoSearch } = require('../models/article');
+
 
 
 var controller ={
